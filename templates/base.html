@@ -1,0 +1,55 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="sp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- titulo de la pagina -->
+    <title>{% block title %}{% endblock %}</title>
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/pizza.png' %}">
+
+    {% block head_css %}
+    {% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Pinnochio’s Pizza & Subs 🍕</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="#"> Usuario: {{ user.username }} </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                </ul>
+            {% else %}
+                <ul class="navbar-nav ml-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/register">Registrarse</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"> Iniciar sesión</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
+    <main class="container p-5">
+        {% block main %}{% endblock %}
+    </main>
+
+</body>
+</html>
