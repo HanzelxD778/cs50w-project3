@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
+{# Load the tag library #}
+{% load bootstrap4 %}
+
 {% block title %}
     Index
 {% endblock %}
 
 {% block main %}
-    <p>Esta es la pagina principal sin logearse</p>
+    <h4>Categories</h4>
 
-    <script>
-        window.location.replace('/accounts/login/')
-    </script>
+    {% for cat in category %}
+        <li>{{cat.category}}</li>
+    {% endfor %}
+
+    
 {% endblock %}
