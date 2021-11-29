@@ -1,0 +1,19 @@
+.card {
+    margin: 10px;
+}
+
+.red {
+    background: red;
+}
+
+.green {
+    background: green;
+}
+
+nav a {
+    color: white;
+}
+
+nav a:hover {
+    color: yellow;
+}

@@ -1,26 +1,76 @@
 from django.db import models
-from django.utils import tree
 
 # Create your models here.
-class Category(models.Model):
-    STATUS = [("1", "Active"), ("0", "Deleted")]
-    category = models.CharField(verbose_name="category of ", max_length=50)
-    status = models.CharField(max_length=2, choices=STATUS, default="1")
+class RegularPizza(models.Model):
+    name = models.CharField(max_length=15)
+    small = models.CharField(max_length=5)
+    large = models.CharField(max_length=5)
 
     def __str__(self):
-        return f"{self.category} {self.status}"
+        return f"{self.name} {self.small} {self.large}"
 
-class Topping(models.Model):
-    top = models.CharField(max_length=100)
+class SicilianPizza(models.Model):
+    name = models.CharField(max_length=15)
+    small = models.CharField(max_length=5)
+    large = models.CharField(max_length=5)
 
     def __str__(self):
-        return f"{self.top}"
+        return f"{self.name} {self.small} {self.large}"
 
-class saucer(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True),
-    product = models.CharField(max_length=100, blank=True),
-    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True),
-    small = models.DecimalField(max_digits=5, decimal_places=2, blank=True),
-    large = models.DecimalField(max_digits=5, decimal_places=2, blank=True),
-    top = models.PositiveIntegerField(blank=True, default=0)
+class Toppings(models.Model):
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name_plural = "Toppings"
     
+    def __str__(self):
+        return f"{self.name}"
+
+class Subs(models.Model):
+    name = models.CharField(max_length=60)
+    small = models.CharField(max_length=5)
+    large = models.CharField(max_length=5)
+
+    class Meta:
+        verbose_name_plural = "Subs"
+
+    def __str__(self):
+        return f"{self.name} {self.small} {self.large}"
+
+class Pasta(models.Model):
+    name = models.CharField(max_length=40)
+    price = models.CharField(max_length=5)
+
+    def __str__(self):
+        return f"{self.name} {self.price}"
+
+class Salads(models.Model):
+    name = models.CharField(max_length=40)
+    price = models.CharField(max_length=5)
+
+    class Meta:
+        verbose_name_plural = "Salads"
+
+    def __str__(self):
+        return f"{self.name} {self.price}"
+
+class DinnerPlatters(models.Model):
+    name = models.CharField(max_length=40)
+    small = models.CharField(max_length=5)
+    large = models.CharField(max_length=5)
+
+    class Meta:
+        verbose_name_plural = "DinnerPlatters"
+
+    def __str__(self):
+        return f"{self.name} {self.small} {self.large}"
+
+class ShoppingCart(models.Model):
+    username = models.CharField(max_length=25)
+    order = models.CharField(max_length=100)
+    price = models.FloatField(blank=True, null=True)
+    toppingsList = models.CharField(max_length=100, default="")
+    approved = models.CharField(max_length=10, default="None")
+
+    def __str__(self):
+        return f"{self.username} {self.order} {self.price} {self.approved}"

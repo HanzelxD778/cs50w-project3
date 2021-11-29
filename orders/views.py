@@ -6,15 +6,22 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import messages #import messages
 from django.contrib.auth.decorators import login_required
-from . models import Category
+from . models import RegularPizza, SicilianPizza, Toppings, Subs, Pasta, Salads, DinnerPlatters
+#from . models import Categorias
 
 # Create your views here.
 @login_required
 def index(request):
-    username = request.user
 
     context = {
-        "category": Category.objects.all(),
+        "username": request.user,
+        "RegularPizzas": RegularPizza.objects.all(),
+        "SicilianPizzas": SicilianPizza.objects.all(),
+        "Toppings": Toppings.objects.all(),
+        "Subs": Subs.objects.all(),
+        "Pastas": Pasta.objects.all(),
+        "Salads": Salads.objects.all(),
+        "DinnerPlatters": DinnerPlatters.objects.all(),
     }
 
     return render(request, 'orders/index.html', context)
@@ -41,3 +48,9 @@ def register(request):
     messages.success(request, "User saved." )
 
     return HttpResponseRedirect(reverse("login"))
+
+def customize(request):
+    if request.method == "GET":
+        return render(request, "orders/customize.html")
+    else:
+        pass
