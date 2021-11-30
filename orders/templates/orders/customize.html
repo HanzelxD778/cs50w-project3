@@ -17,20 +17,28 @@
 <form>
     <h3 class="text-center">Costumize</h3>
     <hr>
-    <h2 class="text-center">{{name}}</h2>
+    <h5 class="text-center">Type: {{tabla}}</h5>
+    <h5 class="text-center">Order: {{name}}</h5>
+    <h5 class="text-center">Small Pizza: ${{small}}</h5>
+    <h5 class="text-center">Large Pizza: ${{large}}</h5>
+    <hr>
     <div class="container">
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Example select</label>
+                    <label for="exampleFormControlSelect1">Choose a size</label>
                     <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>Small</option>
+                        <option>Large</option>
                     </select>
+                    <label for="exampleFormControlSelect1">Choose a topping</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        {% for topping in Toppings %}
+                            <option>{{topping}}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-success">Generate order</button>
                 </div>  
             </div>
             <div class="col-3"></div>

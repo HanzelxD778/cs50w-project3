@@ -1,4 +1,5 @@
 #from django.core.checks import messages
+from django.contrib.auth import models
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -51,8 +52,19 @@ def register(request):
 
 def customize(request):
     if request.method == "POST":
+        tabla = request.POST.get("nombre_tabla")
         name = request.POST.get("nombre_pizza")
-        print(name)
-        return render(request, "orders/customize.html", {"name": name})
+        small = request.POST.get("precio_small")
+        large = request.POST.get("precio_large")
+
+        context = {
+            "tabla" : tabla,
+            "name" : name,
+            "small" : small,
+            "large" : large,
+            "Toppings": Toppings.objects.all(),
+        }
+        
+        return render(request, "orders/customize.html", context)
     else:
         return render(request, "orders/customize.html")
