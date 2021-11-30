@@ -10,189 +10,189 @@
 {% endblock %}
 
 {% block main %}
-                <!-- Our Menu -->
-                <h2 class="text-center">Our Menu</h2>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
-                <!-- RegularPizzas -->  
-                <hr>
-                <h4 class="text-center" id="regular">Regular Pizza</h4>
-                <div class="container">
-                    <div class="row">
-                        {% for pizza in RegularPizzas %}
-                        <div class="card g-0" style="width: 328px;">
-                            <img src="{% static 'img/regular.png' %}" class="card-img-top" alt="18rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{pizza.name}}</h5>
-                                <form method="post" action="{% url 'customize' %}">
-                                    {% csrf_token %}
-                                    <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
-                                    value="RegularPizza" readonly placeholder="Default input">
-                                    <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
-                                    value="{{pizza.name}}" readonly placeholder="Default input">
-                                    <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
-                                    value="{{pizza.small}}" readonly placeholder="Default input">
-                                    <input name='precio_large' class="form-control" style="background: transparent;  border: none;" type="hidden"
-                                    value="{{pizza.large}}" readonly placeholder="Default input">
-                                    <p class="card-text">For the finest and most exquisite palates. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
-                                    <button type="submit" class="btn btn-success">Customize</button>
-                                </form>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+    <!-- Our Menu -->
+    <h2 class="text-center">Our Menu</h2>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
+    <!-- RegularPizzas -->  
+    <hr>
+    <h4 class="text-center" id="regular">Regular Pizza</h4>
+    <div class="container">
+        <div class="row">
+            {% for pizza in RegularPizzas %}
+            <div class="card g-0" style="width: 328px;">
+                <img src="{% static 'img/regular.png' %}" class="card-img-top" alt="18rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{pizza.name}}</h5>
+                    <form method="post" action="{% url 'customize' %}">
+                        {% csrf_token %}
+                        <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="RegularPizza" readonly placeholder="Default input">
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.name}}" readonly placeholder="Default input">
+                        <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.small}}" readonly placeholder="Default input">
+                        <input name='precio_large' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.large}}" readonly placeholder="Default input">
+                        <p class="card-text">For the finest and most exquisite palates. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
+                        <button type="submit" class="btn btn-success">Customize</button>
+                    </form>
                 </div>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
-                <!-- SicilianPizzas -->
-                <hr>
-                <h4 class="text-center" id="sicilian">Sicilian Pizza</h4>
-                <div class="container">
-                    <div class="row">
-                        {% for pizza in SicilianPizzas %}
-                        <div class="card g-0" style="width: 328px;">
-                            <img src="{% static 'img/sicilian.jpg' %}" class="card-img-top" alt="18rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{pizza.name}}</h5>
-                                <p class="card-text">Baked in a pan, which gives it its characteristic crunchy touch. Made every day in our stores. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
-                                <a href="{% url 'customize' %}" class="btn btn-success">Go somewhere</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
+    <!-- SicilianPizzas -->
+    <hr>
+    <h4 class="text-center" id="sicilian">Sicilian Pizza</h4>
+    <div class="container">
+        <div class="row">
+            {% for pizza in SicilianPizzas %}
+            <div class="card g-0" style="width: 328px;">
+                <img src="{% static 'img/sicilian.jpg' %}" class="card-img-top" alt="18rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{pizza.name}}</h5>
+                    <p class="card-text">Baked in a pan, which gives it its characteristic crunchy touch. Made every day in our stores. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
+                    <a href="{% url 'customize' %}" class="btn btn-success">Go somewhere</a>
                 </div>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
-                <!-- Subs -->
-                <hr>
-                <h4 class="text-center" id="subs">Subs</h4>
-                <div class="container">
-                    <div class="row">
-                        {% for sub in Subs %}
-                        <div class="card g-0" style="width: 328px;">
-                            <img src="{% static 'img/sub.jpg' %}" class="card-img-top" alt="18rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{sub.name}}</h5>
-                                <p class="card-text">The submarine sandwich or submarine sandwich is a type of sandwich or American sandwich that is made with marraqueta or French bread open in the shape of a "V".</p>
-                                <a href="#" class="btn btn-success">Go somewhere</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
+    <!-- Subs -->
+    <hr>
+    <h4 class="text-center" id="subs">Subs</h4>
+    <div class="container">
+        <div class="row">
+            {% for sub in Subs %}
+            <div class="card g-0" style="width: 328px;">
+                <img src="{% static 'img/sub.jpg' %}" class="card-img-top" alt="18rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{sub.name}}</h5>
+                    <p class="card-text">The submarine sandwich or submarine sandwich is a type of sandwich or American sandwich that is made with marraqueta or French bread open in the shape of a "V".</p>
+                    <a href="#" class="btn btn-success">Go somewhere</a>
                 </div>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
-                <!-- Pastas -->
-                <hr>
-                <h4 class="text-center" id="pasta">Pastas</h4>
-                <div class="container">
-                    <div class="row">
-                        {% for pasta in Pastas %}
-                        <div class="card g-0" style="width: 328px;">
-                            <img src="{% static 'img/pasta.jpg' %}" class="card-img-top" alt="18rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{pasta.name}}</h5>
-                                <p class="card-text">Baked ziti is a popular casserole with ziti pasta and a Neapolitan-style tomato-based sauce characteristic of Italian-American cuisine. It is a form of pasta al forno. Typically, the pasta is first boiled separately until it is nearly, but not completely, done. The almost-cooked pasta is added to a tomato-based sauce</p>
-                                <a href="#" class="btn btn-success">Go somewhere</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
+    <!-- Pastas -->
+    <hr>
+    <h4 class="text-center" id="pasta">Pastas</h4>
+    <div class="container">
+        <div class="row">
+            {% for pasta in Pastas %}
+            <div class="card g-0" style="width: 328px;">
+                <img src="{% static 'img/pasta.jpg' %}" class="card-img-top" alt="18rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{pasta.name}}</h5>
+                    <p class="card-text">Baked ziti is a popular casserole with ziti pasta and a Neapolitan-style tomato-based sauce characteristic of Italian-American cuisine. It is a form of pasta al forno. Typically, the pasta is first boiled separately until it is nearly, but not completely, done. The almost-cooked pasta is added to a tomato-based sauce</p>
+                    <a href="#" class="btn btn-success">Go somewhere</a>
                 </div>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
-                <!-- Salads -->
-                <hr>
-                <h4 class="text-center" id="salads">Salads</h4>
-                <div class="container">
-                    <div class="row">
-                        {% for salad in Salads %}
-                        <div class="card g-0" style="width: 328px;">
-                            <img src="{% static 'img/salad.jpg' %}" class="card-img-top" alt="18rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{salad.name}}</h5>
-                                <p class="card-text">The garden salad is a type of salad that is made with fresh vegetables, generally from a garden. It is made in many ways, more than a recipe it is a style of making salads.</p>
-                                <a href="#" class="btn btn-success">Go somewhere</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
+    <!-- Salads -->
+    <hr>
+    <h4 class="text-center" id="salads">Salads</h4>
+    <div class="container">
+        <div class="row">
+            {% for salad in Salads %}
+            <div class="card g-0" style="width: 328px;">
+                <img src="{% static 'img/salad.jpg' %}" class="card-img-top" alt="18rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{salad.name}}</h5>
+                    <p class="card-text">The garden salad is a type of salad that is made with fresh vegetables, generally from a garden. It is made in many ways, more than a recipe it is a style of making salads.</p>
+                    <a href="#" class="btn btn-success">Go somewhere</a>
                 </div>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
-                <!-- DinnerPlatters -->
-                <hr>
-                <h4 class="text-center" id="dinner">Dinner Platters</h4>
-                <div class="container">
-                    <div class="row">
-                        {% for dinner in DinnerPlatters %}
-                        <div class="card g-0" style="width: 328px;">
-                            <img src="{% static 'img/dinner.jpg' %}" class="card-img-top" alt="18rem">
-                            <div class="card-body">
-                                <h5 class="card-title">{{dinner.name}}</h5>
-                                <p class="card-text">Enjoy a dinner like Chicken Parmesan, or chicken Parmesan, is a dish consisting of breaded chicken breast topped with tomato sauce and mozzarella, Parmesan, or provolone cheese. Sometimes a slice of ham or bacon is added.</p>
-                                <a href="" class="btn btn-success">Go somewhere</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
+    <!-- DinnerPlatters -->
+    <hr>
+    <h4 class="text-center" id="dinner">Dinner Platters</h4>
+    <div class="container">
+        <div class="row">
+            {% for dinner in DinnerPlatters %}
+            <div class="card g-0" style="width: 328px;">
+                <img src="{% static 'img/dinner.jpg' %}" class="card-img-top" alt="18rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{dinner.name}}</h5>
+                    <p class="card-text">Enjoy a dinner like Chicken Parmesan, or chicken Parmesan, is a dish consisting of breaded chicken breast topped with tomato sauce and mozzarella, Parmesan, or provolone cheese. Sometimes a slice of ham or bacon is added.</p>
+                    <a href="" class="btn btn-success">Go somewhere</a>
                 </div>
-                <hr>
-                <!-- nav -->
-                <nav class="nav justify-content-center red">
-                    <a class="nav-link" href="#regular">Regular Pizza</a>
-                    <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
-                    <a class="nav-link" href="#subs">Subs</a>
-                    <a class="nav-link" href="#pasta">Pastas</a>
-                    <a class="nav-link" href="#salads">Salads</a>
-                    <a class="nav-link" href="#dinner">Dinner Platters</a>
-                </nav>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <hr>
+    <!-- nav -->
+    <nav class="nav justify-content-center red">
+        <a class="nav-link" href="#regular">Regular Pizza</a>
+        <a class="nav-link" href="#sicilian">Sicilian Pizza</a>
+        <a class="nav-link" href="#subs">Subs</a>
+        <a class="nav-link" href="#pasta">Pastas</a>
+        <a class="nav-link" href="#salads">Salads</a>
+        <a class="nav-link" href="#dinner">Dinner Platters</a>
+    </nav>
 {% endblock %}

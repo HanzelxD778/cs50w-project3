@@ -27,18 +27,24 @@
             <div class="col-3"></div>
             <div class="col-6">
                 <div class="form-group">
+                    <form method="post" action="{% url 'carrito' %}">
                     <label for="exampleFormControlSelect1">Choose a size</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>Small</option>
-                        <option>Large</option>
+                    <select class="form-control" id="exampleFormControlSelect1" name="price">
+                        <option value="{{small}}">Small</option>
+                        <option value="{{large}}">Large</option>
                     </select>
                     <label for="exampleFormControlSelect1">Choose a topping</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select class="form-control" id="exampleFormControlSelect1" name="toppings" multiple>
                         {% for topping in Toppings %}
-                            <option>{{topping}}</option>
+                            <option value="{{topping.id}}">{{topping}}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit" class="btn btn-success">Generate order</button>
+                    <!-- form para pasar los datos al view -->
+                        {% csrf_token %}
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{tabla}} {{name}}" readonly placeholder="Default input">
+                        <button type="submit" class="btn btn-success">Generate order</button>
+                    </form>
                 </div>  
             </div>
             <div class="col-3"></div>
