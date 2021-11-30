@@ -32,8 +32,13 @@
                             <img src="{% static 'img/regular.png' %}" class="card-img-top" alt="18rem">
                             <div class="card-body">
                                 <h5 class="card-title">{{pizza.name}}</h5>
-                                <p class="card-text">For the finest and most exquisite palates. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
-                                <a href="#" class="btn btn-success">Customize</a>
+                                <form method="post" action="{% url 'customize' %}">
+                                    {% csrf_token %}
+                                    <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                                    value="{{pizza.name}}" readonly placeholder="Default input">
+                                    <p class="card-text">For the finest and most exquisite palates. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
+                                    <button type="submit" class="btn btn-success">Customize</button>
+                                </form>
                             </div>
                         </div>
                         {% endfor %}

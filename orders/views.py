@@ -1,7 +1,7 @@
 #from django.core.checks import messages
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import messages #import messages
@@ -50,7 +50,9 @@ def register(request):
     return HttpResponseRedirect(reverse("login"))
 
 def customize(request):
-    if request.method == "GET":
-        return render(request, "orders/customize.html")
+    if request.method == "POST":
+        name = request.POST.get("nombre_pizza")
+        print(name)
+        return render(request, "orders/customize.html", {"name": name})
     else:
-        pass
+        return render(request, "orders/customize.html")
