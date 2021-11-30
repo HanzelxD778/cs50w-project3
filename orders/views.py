@@ -68,3 +68,6 @@ def customize(request):
         return render(request, "orders/customize.html", context)
     else:
         return render(request, "orders/customize.html")
+
+def carrito(request):
+    return render(request, "orders/carrito.html")
