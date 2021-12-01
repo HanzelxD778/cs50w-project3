@@ -70,8 +70,19 @@
                 <img src="{% static 'img/sicilian.jpg' %}" class="card-img-top" alt="18rem">
                 <div class="card-body">
                     <h5 class="card-title">{{pizza.name}}</h5>
-                    <p class="card-text">Baked in a pan, which gives it its characteristic crunchy touch. Made every day in our stores. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
-                    <a href="{% url 'customize' %}" class="btn btn-success">Go somewhere</a>
+                    <form method="post" action="{% url 'customize' %}">
+                        {% csrf_token %}
+                        <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="RegularPizza" readonly placeholder="Default input">
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.name}}" readonly placeholder="Default input">
+                        <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.small}}" readonly placeholder="Default input">
+                        <input name='precio_large' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.large}}" readonly placeholder="Default input">
+                        <p class="card-text">Baked in a pan, which gives it its characteristic crunchy touch. Made every day in our stores. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
+                        <button type="submit" class="btn btn-success">Customize</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}

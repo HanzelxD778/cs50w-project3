@@ -66,14 +66,9 @@ def customize(request):
             "Toppings": Toppings.objects.all(),
         }
 
-        #carrito = CarritoOrdenes()
-        #carrito.save()
-        #orden = DetalleOrden()
-        #orden.order = orden.
-
         return render(request, "orders/customize.html", context)
     else:
-        return render(request, "orders/carrito.html")
+        print("ENTRE POR GET A CUSTOMIZE")
 
 def carrito(request):
     if request.method == "POST":
@@ -88,7 +83,7 @@ def carrito(request):
             "nombre_tabla": nombre_tabla,
             "nombre_pizza" : nombre_pizza,
         }
-        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+
         print(price)
         print(toppings)
         print(nombre_tabla)
@@ -96,5 +91,8 @@ def carrito(request):
 
         return render(request, "orders/carrito.html", context)
     else:
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        return render(request, "orders/customize.html")
+        #carrito = CarritoOrdenes()
+        #carrito.save()
+        #orden = DetalleOrden()
+        #orden.order = orden.
+        return render(request, "orders/carrito.html")
