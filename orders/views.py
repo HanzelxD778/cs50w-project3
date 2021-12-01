@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import messages #import messages
 from django.contrib.auth.decorators import login_required
-from . models import RegularPizza, SicilianPizza, Toppings, Subs, Pasta, Salads, DinnerPlatters
+from . models import RegularPizza, SicilianPizza, Toppings, Subs, Pasta, Salads, DinnerPlatters, CarritoOrdenes, DetalleOrden
 #from . models import Categorias
 
 # Create your views here.
@@ -52,6 +52,7 @@ def register(request):
 
 def customize(request):
     if request.method == "POST":
+        
         tabla = request.POST.get("nombre_tabla")
         name = request.POST.get("nombre_pizza")
         small = request.POST.get("precio_small")
@@ -64,10 +65,36 @@ def customize(request):
             "large" : large,
             "Toppings": Toppings.objects.all(),
         }
-        
+
+        #carrito = CarritoOrdenes()
+        #carrito.save()
+        #orden = DetalleOrden()
+        #orden.order = orden.
+
         return render(request, "orders/customize.html", context)
     else:
-        return render(request, "orders/customize.html")
+        return render(request, "orders/carrito.html")
 
 def carrito(request):
-    return render(request, "orders/carrito.html")
+    if request.method == "POST":
+        price = request.POST.get("price")
+        toppings = request.POST.getlist("toppings")
+        nombre_tabla = request.POST.get("nombre_tabla")
+        nombre_pizza = request.POST.get("nombre_pizza")
+        
+        context = {
+            "price": price,
+            "toppings" : toppings,
+            "nombre_tabla": nombre_tabla,
+            "nombre_pizza" : nombre_pizza,
+        }
+        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+        print(price)
+        print(toppings)
+        print(nombre_tabla)
+        print(nombre_pizza)
+
+        return render(request, "orders/carrito.html", context)
+    else:
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        return render(request, "orders/customize.html")
