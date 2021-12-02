@@ -35,13 +35,15 @@
                     <form method="post" action="{% url 'customize' %}">
                         {% csrf_token %}
                         <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
-                        value="RegularPizza" readonly placeholder="Default input">
+                        value="Regular Pizza" readonly placeholder="Default input">
                         <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
                         value="{{pizza.name}}" readonly placeholder="Default input">
                         <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
                         value="{{pizza.small}}" readonly placeholder="Default input">
                         <input name='precio_large' class="form-control" style="background: transparent;  border: none;" type="hidden"
                         value="{{pizza.large}}" readonly placeholder="Default input">
+                        <input name='max_extras' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pizza.max_extras}}" readonly placeholder="Default input">
                         <p class="card-text">For the finest and most exquisite palates. Combine it with your favorite ingredients and enjoy a burst of flavor in every bite.</p>
                         <button type="submit" class="btn btn-success">Customize</button>
                     </form>
@@ -73,7 +75,7 @@
                     <form method="post" action="{% url 'customize' %}">
                         {% csrf_token %}
                         <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
-                        value="RegularPizza" readonly placeholder="Default input">
+                        value="SicilianPizza" readonly placeholder="Default input">
                         <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
                         value="{{pizza.name}}" readonly placeholder="Default input">
                         <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
@@ -108,8 +110,19 @@
                 <img src="{% static 'img/sub.jpg' %}" class="card-img-top" alt="18rem">
                 <div class="card-body">
                     <h5 class="card-title">{{sub.name}}</h5>
-                    <p class="card-text">The submarine sandwich or submarine sandwich is a type of sandwich or American sandwich that is made with marraqueta or French bread open in the shape of a "V".</p>
-                    <a href="#" class="btn btn-success">Go somewhere</a>
+                    <form method="post" action="{% url 'customize' %}">
+                        {% csrf_token %}
+                        <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="Subs" readonly placeholder="Default input">
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{sub.name}}" readonly placeholder="Default input">
+                        <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{sub.small}}" readonly placeholder="Default input">
+                        <input name='precio_large' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{sub.large}}" readonly placeholder="Default input">
+                        <p class="card-text">The submarine sandwich or submarine sandwich is a type of sandwich or American sandwich that is made with marraqueta or French bread open in the shape of a "V".</p>
+                        <button type="submit" class="btn btn-success">Customize</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}

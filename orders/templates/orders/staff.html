@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{% load static %}
+
+{% block head_css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block title %}
+    staff
+{% endblock %}
+
+{% block main %}
+
+    <h4 class="text-center">Costume orders</h4>
+
+    {% for order in shopping_cart %}
+        <p class="text-center">
+            {{order.order}} {{order.price}} {{order.approved}}
+        </p>
+        {% if order.approved == "approved" %}
+            <button class="btn btn-dark" disabled>Confirmed</button>
+            {% else %}
+            <form action="{% url 'approve_order' %}" method="POST">
+                {% csrf_token %}
+                <input name='estado_orden' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                value="{{order.id}}" readonly placeholder="Default input">
+                <button class="btn btn-dark">Confirm Order</button>
+            </form>
+        {% endif %}
+        <hr>
+    {% endfor %}
+
+{% endblock %}

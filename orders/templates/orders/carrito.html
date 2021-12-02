@@ -9,7 +9,12 @@
     Carrito
 {% endblock %}
 
-{% block main %}
-    <h4 class="text-center">Your cart</h4>
+{% block main %} 
     <h4 class="text-center">Your orders</h4>
+    {% for order in user_order %}
+        
+        <p class="text-center">
+            {{order.order}} {{order.price}} {{order.approved}}
+        </p>
+    {% endfor %}
 {% endblock %}

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import messages #import messages
 from django.contrib.auth.decorators import login_required
-from . models import RegularPizza, SicilianPizza, Toppings, Subs, Pasta, Salads, DinnerPlatters, CarritoOrdenes, DetalleOrden
+from . models import DetalleOrden, Orden, RegularPizza, ShoppingCart, SicilianPizza, Toppings, Subs, Pasta, Salads, DinnerPlatters
 #from . models import Categorias
 
 # Create your views here.
@@ -57,12 +57,14 @@ def customize(request):
         name = request.POST.get("nombre_pizza")
         small = request.POST.get("precio_small")
         large = request.POST.get("precio_large")
+        max_extras = request.POST.get("max_extras")
 
         context = {
             "tabla" : tabla,
             "name" : name,
             "small" : small,
             "large" : large,
+            "max_extras": max_extras, 
             "Toppings": Toppings.objects.all(),
         }
 
@@ -76,23 +78,68 @@ def carrito(request):
         toppings = request.POST.getlist("toppings")
         nombre_tabla = request.POST.get("nombre_tabla")
         nombre_pizza = request.POST.get("nombre_pizza")
+        max_extras = request.POST.get("max_extras")
+        cantidad = request.POST.get("cantidad")
+
+        #obtener orden del cliente cuyo estado esta en progreso
+        orden = Orden.objects.filter(username=request.user, estado="0").first()
+
+        if not orden:
+            orden = Orden.objects.create(username=request.user, estado="0", total=0)
+
+        detalle_orden = DetalleOrden.objects.create(orden=orden, producto=nombre_pizza, precio=price, cantidad=cantidad)
+
+        try:
+            #https://www.delftstack.com/es/howto/python/python-split-list-into-chunks/
+            output=[toppings[i:i + int(max_extras)] for i in range(0, len(toppings), int(max_extras))]
+            output1 = output[0]
+        except:
+            output=None
+            output1=None
+        
+        print(output)
+        print(output1)
+ 
+        orden = f"{nombre_tabla} {nombre_pizza} {str(output1)[1:-1]}"
         
         context = {
+            "user_order": ShoppingCart.objects.filter(username=request.user),
             "price": price,
-            "toppings" : toppings,
-            "nombre_tabla": nombre_tabla,
-            "nombre_pizza" : nombre_pizza,
+            "orden" : orden,
         }
 
-        print(price)
-        print(toppings)
-        print(nombre_tabla)
-        print(nombre_pizza)
+        new_order = ShoppingCart(username=request.user, order=orden, price=price, approved="pending")
+        new_order.save()
+
+        #aqui me falta hacer alguna validacion con respecto al total
+        #orden = Orden(username=request.user, estado=0)
+        #orden.save()
+
+        #aqui no se como meter la lista de toppings
+        #detalle_orden = DetalleOrden(orden=orden, producto=nombre_pizza, precio=price, cantidad=cantidad)
 
         return render(request, "orders/carrito.html", context)
     else:
-        #carrito = CarritoOrdenes()
-        #carrito.save()
-        #orden = DetalleOrden()
-        #orden.order = orden.
-        return render(request, "orders/carrito.html")
+
+        context = {
+            "user_order": ShoppingCart.objects.filter(username=request.user)
+        }
+
+        print(context)
+
+        return render(request, "orders/carrito.html", context)
+
+def staff(request):
+    username = request.user
+    context = {
+        "username": username,
+        "shopping_cart": ShoppingCart.objects.all()
+    }
+    return render(request, "orders/staff.html", context)
+
+def approve_order(request):
+    estado_orden = request.POST.get("estado_orden")
+    order = ShoppingCart.objects.get(pk=estado_orden)
+    order.approved = "approved"
+    order.save()
+    return HttpResponseRedirect(reverse("staff"))
