@@ -19,9 +19,9 @@
     <hr>
     <h5 class="text-center">Type: {{tabla}}</h5>
     <h5 class="text-center">Order: {{name}}</h5>
-    <h5 class="text-center">Small Pizza: ${{small}}</h5>
-    <h5 class="text-center">Large Pizza: ${{large}}</h5>
-    <h5 class="text-center">Max of toppings for this pizza: {{max_extras}}</h5>
+    <h5 class="text-center">Small: ${{small}}</h5>
+    <h5 class="text-center">Large: ${{large}}</h5>
+    <h5 class="text-center">Number of toppings you can add to this saucer: {{max_extras}}</h5>
     <hr>
     <div class="container">
         <div class="row">
@@ -38,11 +38,11 @@
                         <label for="exampleFormControlSelect1">Choose a topping, Hold down “Control”, or “Command” on a Mac, to select more than one.</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="toppings" multiple>
                             {% for topping in Toppings %}
-                                <option value="{{topping.name}}">{{topping}}</option>
+                                <option value="{{topping.id}}">{{topping}}</option>
                             {% endfor %}
                         </select>
 
-                        <input type="number" name="cantidad" placeholder="Cantidad de pizzas">
+                        <input type="number" name="cantidad" placeholder="Cantidad de pizzas" required>
 
                         <!-- form para pasar los datos al view -->
                             

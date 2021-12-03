@@ -72,8 +72,8 @@ class DinnerPlatters(models.Model):
 
 class Orden(models.Model):
     username = models.ForeignKey(User, on_delete=CASCADE, related_name="carrito")
-    total = models.FloatField(blank=True, null=True)
-    ESTADO = [("0", "progreso"), ("1", "finalizado"), ("2", "cancelado")]
+    total = models.FloatField(blank=True, null=True, default=0)
+    ESTADO = [("0", "creada"), ("1", "progreso"), ("2", "finalizado"), ("3", "cancelado")]
     estado = models.CharField(max_length=10, choices=ESTADO, default="0")
     fecha = models.DateTimeField(auto_now_add=True)
 

@@ -1,5 +1,6 @@
 #from django.core.checks import messages
 from django.contrib.auth import models
+from django.db.models.fields.related import ManyToManyField
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -81,13 +82,22 @@ def carrito(request):
         max_extras = request.POST.get("max_extras")
         cantidad = request.POST.get("cantidad")
 
-        #obtener orden del cliente cuyo estado esta en progreso
+        if int(cantidad) <= 0:
+            cantidad = 1
+
+        #obtener orden del cliente cuyo estado esta creada
         orden = Orden.objects.filter(username=request.user, estado="0").first()
 
         if not orden:
             orden = Orden.objects.create(username=request.user, estado="0", total=0)
 
         detalle_orden = DetalleOrden.objects.create(orden=orden, producto=nombre_pizza, precio=price, cantidad=cantidad)
+
+        orden.total += (float(price) * int(cantidad))
+
+        orden.save()
+
+        total = orden.total
 
         try:
             #https://www.delftstack.com/es/howto/python/python-split-list-into-chunks/
@@ -97,49 +107,81 @@ def carrito(request):
             output=None
             output1=None
         
-        print(output)
+        #print(output)
         print(output1)
+
+        if output1:
+            for id_extras in output1:
+                extras = Toppings.objects.get(id=id_extras)
+
+                if extras:
+                    detalle_orden.toppingsList.add(extras)
  
-        orden = f"{nombre_tabla} {nombre_pizza} {str(output1)[1:-1]}"
-        
+        #orden = f"{nombre_tabla} {nombre_pizza} {str(output1)[1:-1]}"
+
         context = {
-            "user_order": ShoppingCart.objects.filter(username=request.user),
-            "price": price,
-            "orden" : orden,
+            "orden": orden,
+            "total": total
         }
-
-        new_order = ShoppingCart(username=request.user, order=orden, price=price, approved="pending")
-        new_order.save()
-
-        #aqui me falta hacer alguna validacion con respecto al total
-        #orden = Orden(username=request.user, estado=0)
-        #orden.save()
-
-        #aqui no se como meter la lista de toppings
-        #detalle_orden = DetalleOrden(orden=orden, producto=nombre_pizza, precio=price, cantidad=cantidad)
 
         return render(request, "orders/carrito.html", context)
     else:
 
+        orden = Orden.objects.filter(username=request.user, estado="0").first()
+        total = Orden.objects.filter(username=request.user, estado="0").first()
+
+        try:
+            total1 = total.total
+        except:
+            return render(request, "orders/no.html")
+
+        if not orden:
+            orden = Orden.objects.create(username=request.user, estado="0", total=0)
+
         context = {
-            "user_order": ShoppingCart.objects.filter(username=request.user)
+            "orden": orden,
+            "total": total1
         }
 
         print(context)
 
         return render(request, "orders/carrito.html", context)
 
+def approve_order(request):
+    estado_orden = request.POST.get("estado_orden")
+    order = Orden.objects.get(pk=estado_orden)
+    order.estado = "2"
+    order.save()
+    return HttpResponseRedirect(reverse("staff"))
+
+def generate_order(request):
+    estado_orden = request.POST.get("estado_orden")
+    order = Orden.objects.get(pk=estado_orden)
+    order.estado = "1"
+    order.save()
+    return HttpResponseRedirect(reverse("index"))
+
+def cancel_order(request):
+    estado_orden = request.POST.get("estado_orden")
+    order = Orden.objects.get(pk=estado_orden)
+    order.estado = "3"
+    order.save()
+    return HttpResponseRedirect(reverse("index"))
+
 def staff(request):
     username = request.user
     context = {
         "username": username,
-        "shopping_cart": ShoppingCart.objects.all()
+        "staff": Orden.objects.all(),
     }
+
     return render(request, "orders/staff.html", context)
 
-def approve_order(request):
-    estado_orden = request.POST.get("estado_orden")
-    order = ShoppingCart.objects.get(pk=estado_orden)
-    order.approved = "approved"
-    order.save()
-    return HttpResponseRedirect(reverse("staff"))
+def history(request):
+    my_history = Orden.objects.filter(username=request.user).all()
+
+    context = {
+        "ordenes": my_history,
+    }
+
+    return render(request, "orders/history.html", context)

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{% load static %}
+
+{% block head_css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block title %}
+    Customize
+{% endblock %}
+
+{% block main %}
+
+    <h3 class="text-center">Orders history</h3>
+    <h5>State means: 0 = Cart with order not generated yet, 1 = Order generated, 2 = Order accepted, 3 = Order cancelated</h5>
+
+    {% for order in ordenes %}
+        <p class="text-center">User: {{order.username}}, id orden: {{order.id}} ,order with state: {{order.estado}} total: ${{order.total}}</p>
+        {% if order.estado == "0" %}
+            <button class="btn btn-light" disabled>Cart with order not generated yet</button>
+        {% elif order.estado == "1" %}
+            <button class="btn btn-dark" disabled>Order generated</button>
+        {% elif order.estado == "2" %}
+            <button class="btn btn-success" disabled>Order accepted</button>
+        {% else %}
+            <button class="btn btn-dark" disabled>Order cancelated</button>
+        {% endif %}
+        <hr>
+    {% endfor %}
+
+{% endblock %}

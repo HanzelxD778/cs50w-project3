@@ -148,8 +148,18 @@
                 <img src="{% static 'img/pasta.jpg' %}" class="card-img-top" alt="18rem">
                 <div class="card-body">
                     <h5 class="card-title">{{pasta.name}}</h5>
-                    <p class="card-text">Baked ziti is a popular casserole with ziti pasta and a Neapolitan-style tomato-based sauce characteristic of Italian-American cuisine. It is a form of pasta al forno. Typically, the pasta is first boiled separately until it is nearly, but not completely, done. The almost-cooked pasta is added to a tomato-based sauce</p>
-                    <a href="#" class="btn btn-success">Go somewhere</a>
+                    <form method="post" action="{% url 'carrito' %}">
+                        {% csrf_token %}
+                        <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="Pastas" readonly placeholder="Default input">
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pasta.name}}" readonly placeholder="Default input">
+                        <input name='price' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{pasta.price}}" readonly placeholder="Default input">
+                        <input type="number" name="cantidad" placeholder="Cantidad de pastas" required>
+                        <p class="card-text">Baked ziti is a popular casserole with ziti pasta and a Neapolitan-style tomato-based sauce characteristic of Italian-American cuisine. It is a form of pasta al forno. Typically, the pasta is first boiled separately until it is nearly, but not completely, done. The almost-cooked pasta is added to a tomato-based sauce</p>
+                        <button type="submit" class="btn btn-success">{{pasta.price}}</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}
@@ -175,8 +185,18 @@
                 <img src="{% static 'img/salad.jpg' %}" class="card-img-top" alt="18rem">
                 <div class="card-body">
                     <h5 class="card-title">{{salad.name}}</h5>
-                    <p class="card-text">The garden salad is a type of salad that is made with fresh vegetables, generally from a garden. It is made in many ways, more than a recipe it is a style of making salads.</p>
-                    <a href="#" class="btn btn-success">Go somewhere</a>
+                    <form method="post" action="{% url 'carrito' %}">
+                        {% csrf_token %}
+                        <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="Salads" readonly placeholder="Default input">
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{salad.name}}" readonly placeholder="Default input">
+                        <input name='price' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{salad.price}}" readonly placeholder="Default input">
+                        <input type="number" name="cantidad" placeholder="Cantidad de pastas" required>
+                        <p class="card-text">The garden salad is a type of salad that is made with fresh vegetables, generally from a garden. It is made in many ways, more than a recipe it is a style of making salads.</p>
+                        <button type="submit" class="btn btn-success">{{salad.price}}</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}
@@ -202,8 +222,21 @@
                 <img src="{% static 'img/dinner.jpg' %}" class="card-img-top" alt="18rem">
                 <div class="card-body">
                     <h5 class="card-title">{{dinner.name}}</h5>
-                    <p class="card-text">Enjoy a dinner like Chicken Parmesan, or chicken Parmesan, is a dish consisting of breaded chicken breast topped with tomato sauce and mozzarella, Parmesan, or provolone cheese. Sometimes a slice of ham or bacon is added.</p>
-                    <a href="" class="btn btn-success">Go somewhere</a>
+                    <form method="post" action="{% url 'customize' %}">
+                        {% csrf_token %}
+                        <input name='nombre_tabla' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="DinnerPlatters" readonly placeholder="Default input">
+                        <input name='nombre_pizza' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{dinner.name}}" readonly placeholder="Default input">
+                        <input name='precio_small' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{dinner.small}}" readonly placeholder="Default input">
+                        <input name='precio_large' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="{{dinner.large}}" readonly placeholder="Default input">
+                        <input name='max_extras' class="form-control" style="background: transparent;  border: none;" type="hidden"
+                        value="0" readonly placeholder="Default input">
+                        <p class="card-text">Enjoy a dinner like Chicken Parmesan, or chicken Parmesan, is a dish consisting of breaded chicken breast topped with tomato sauce and mozzarella, Parmesan, or provolone cheese. Sometimes a slice of ham or bacon is added.</p>
+                        <button type="submit" class="btn btn-success">Costumize</button>
+                    </form>
                 </div>
             </div>
             {% endfor %}

@@ -10,11 +10,49 @@
 {% endblock %}
 
 {% block main %} 
-    <h4 class="text-center">Your orders</h4>
-    {% for order in user_order %}
+    <h4 class="text-center">Your cart</h4>
+    {% for detalle in orden.orden_detalle.all %}
+
+        <p class="text-center">Producto: {{detalle.producto}} </p>
+
+        <p class="text-center">Precio unitario: {{detalle.precio}}</p>
+
+        <p class="text-center">Cantidad del producto: {{detalle.cantidad}} </p>
+
+        {% if detalle.toppingsList.all %}
+            <p class="text-center">Toppings seleccionados: </p>
+
+            {% for deta in detalle.toppingsList.all %}
+                <p class="text-center">{{deta}}</p>
+            {% endfor %}        
+        {% endif %}
+        <hr>
         
-        <p class="text-center">
-            {{order.order}} {{order.price}} {{order.approved}}
-        </p>
     {% endfor %}
+
+    <p class="text-center">Total: {{total}}</p>
+    <p>id de la orden: {{orden.id}}</p>
+    <p>Estado de la orden: {{orden.estado}}</p>
+
+    <form method="POST" action="{% url 'generate_order' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            
+            <input name='estado_orden' class="form-control" style="background: transparent;  border: none;" type="hidden"
+            value="{{orden.id}}" readonly placeholder="Default input">
+                
+            <button type="submit" class="btn btn-success">Generate order</button>
+        </div>
+    </form>
+    <form method="POST" action="{% url 'cancel_order' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            
+            <input name='estado_orden' class="form-control" style="background: transparent;  border: none;" type="hidden"
+            value="{{orden.id}}" readonly placeholder="Default input">
+                
+            <button type="submit" class="btn btn-dark">Cancel order</button>
+        </div>
+    </form>
+
 {% endblock %}
