@@ -20,6 +20,20 @@
 
     {% for order in ordenes %}
         <p class="text-center">User: {{order.username}}, id orden: {{order.id}} ,order with state: {{order.estado}} total: ${{order.total}}</p>
+        {% for deta in detalle %}
+            {% if deta.orden.pk == order.pk %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Saucer: {{deta.producto}}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Saucer unit price: {{deta.precio}}</li>
+                    <li class="list-group-item">Amount of this dish: {{deta.cantidad}}</li>
+
+                    </ul>
+                </div>      
+            {% endif %}
+        {% endfor %}
         {% if order.estado == "0" %}
             <button class="btn btn-light" disabled>Cart with order not generated yet</button>
         {% elif order.estado == "1" %}

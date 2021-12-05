@@ -179,9 +179,11 @@ def staff(request):
 
 def history(request):
     my_history = Orden.objects.filter(username=request.user).all()
+    detalle = DetalleOrden.objects.all()
 
     context = {
         "ordenes": my_history,
+        "detalle": detalle
     }
 
     return render(request, "orders/history.html", context)
